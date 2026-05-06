@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP Tuning</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app" style="display: none;">
+
+        <div class="top-accent"></div>
+
+        <aside id="leftPanel" class="panel left">
+            <div class="close-hint">
+                <span class="key">ESC</span> <span data-loc="close_hint_suffix">Close tuning</span>
+            </div>
+
+            <div class="header">
+                <h1><span data-loc="header_title">CAR TUNING</span> <img class="logo-r" src="logo-r.png" alt="" draggable="false"></h1>
+                <p class="subtitle" data-loc="header_subtitle">Customize your vehicle with premium parts and paint jobs.</p>
+            </div>
+
+            <div class="categories">
+                <button class="nav-btn" id="catPrev"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="tabs" id="tabs"></div>
+                <button class="nav-btn highlight" id="catNext"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <div class="info-banner" id="infoBanner">
+                <i class="fa-solid fa-wrench"></i>
+                <div class="info-text">
+                    <h3 id="infoTitle" data-loc="banner_mechanic_title">Mechanic tuner</h3>
+                    <p id="infoSubtitle" data-loc="banner_mechanic_subtitle">Limited access, higher prices.</p>
+                </div>
+            </div>
+
+            <div class="options-list" id="optionsList"></div>
+
+            <div class="checkout-section">
+                <div class="total-row">
+                    <span class="total-label" data-loc="total_label">TOTAL</span>
+                    <span class="total-price" id="totalPrice">0 $</span>
+                </div>
+                <button class="buy-btn" id="buyBtn" data-loc="buy">BUY</button>
+            </div>
+
+            <div class="footer-controls">
+                <div class="control">
+                    <div class="mouse-icon"><i class="fa-solid fa-computer-mouse"></i></div>
+                    <div class="control-text">
+                        <span class="ctrl-label" data-loc="ctrl_option">OPTION</span>
+                        <span class="ctrl-action" data-loc="ctrl_rotate">ROTATE</span>
+                    </div>
+                </div>
+                <div class="control">
+                    <div class="mouse-icon"><i class="fa-solid fa-computer-mouse"></i></div>
+                    <div class="control-text">
+                        <span class="ctrl-label" data-loc="ctrl_option">OPTION</span>
+                        <span class="ctrl-action" data-loc="ctrl_zoom">ZOOM</span>
+                    </div>
+                </div>
+            </div>
+            <p class="footer-desc" data-loc="footer_camera">Hold LMB to rotate the camera. Use scroll wheel to zoom.</p>
+        </aside>
+
+        <aside id="rightPanel" class="panel right">
+            <div class="right-accent"><i class="fa-solid fa-chevron-right"></i></div>
+
+            <section class="block" data-block="material">
+                <h2 class="block-title" data-loc="block_material_title">MATERIAL</h2>
+                <p class="block-desc" data-loc="block_material_desc">Choose a surface finish. Matte or metallic changes how paint reflects light.</p>
+                <div class="pill-grid three" id="materialGrid">
+                    <button class="pill active" data-mat="0" data-loc="mat_normal">NORMAL</button>
+                    <button class="pill" data-mat="1" data-loc="mat_metallic">METALLIC</button>
+                    <button class="pill" data-mat="3" data-loc="mat_matte">MATTE</button>
+                    <button class="pill" data-mat="4" data-loc="mat_metal">METAL</button>
+                    <button class="pill" data-mat="7" data-loc="mat_chrome">CHROME</button>
+                </div>
+            </section>
+
+            <section class="block" data-block="colors">
+                <h2 class="block-title" data-loc="block_colors_title">CAR COLORS</h2>
+                <p class="block-desc" data-loc="block_colors_desc">Pick a color for the primary or secondary body layer.</p>
+                <div class="pill-grid two small">
+                    <button class="pill active" id="colorPrimary" data-loc="color_primary">Primary</button>
+                    <button class="pill" id="colorSecondary" data-loc="color_secondary">Secondary</button>
+                </div>
+                <div class="color-picker">
+                    <div class="sv-box" id="svBox">
+                        <div class="sv-pointer" id="svPointer"></div>
+                    </div>
+                    <div class="hue-slider" id="hueSlider">
+                        <div class="hue-pointer" id="huePointer"></div>
+                    </div>
+                    <div class="color-inputs">
+                        <div class="color-input-row">
+                            <label data-loc="rgb_label_hex">HEX</label>
+                            <input type="text" id="hexInput" maxlength="7" value="#ffffff">
+                        </div>
+                        <div class="color-input-row">
+                            <label data-loc="rgb_label_rgb">RGB</label>
+                            <input type="number" id="rInput" min="0" max="255" value="255">
+                            <input type="number" id="gInput" min="0" max="255" value="255">
+                            <input type="number" id="bInput" min="0" max="255" value="255">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="block" data-block="engine">
+                <h2 class="block-title" data-loc="block_engine_title">ENGINE</h2>
+                <p class="block-desc" data-loc="block_engine_desc">Upgrade engine performance to increase top speed and acceleration.</p>
+                <div class="stepper">
+                    <button class="step-btn highlight" data-step="engine" data-dir="-1"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="step-value" id="engineValue">STOCK</div>
+                    <button class="step-btn" data-step="engine" data-dir="1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <section class="block" data-block="transmission">
+                <h2 class="block-title" data-loc="block_transmission_title">TRANSMISSION</h2>
+                <p class="block-desc" data-loc="block_transmission_desc">Improve shift speed and smoothness.</p>
+                <div class="stepper">
+                    <button class="step-btn highlight" data-step="transmission" data-dir="-1"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="step-value" id="transmissionValue">STOCK</div>
+                    <button class="step-btn" data-step="transmission" data-dir="1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <section class="block" data-block="brakes">
+                <h2 class="block-title" data-loc="block_brakes_title">BRAKES</h2>
+                <p class="block-desc" data-loc="block_brakes_desc">Upgrade to sport or race brakes for shorter stopping distance.</p>
+                <div class="stepper">
+                    <button class="step-btn highlight" data-step="brakes" data-dir="-1"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="step-value" id="brakesValue">STOCK</div>
+                    <button class="step-btn" data-step="brakes" data-dir="1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <section class="block" data-block="suspension">
+                <h2 class="block-title" data-loc="block_suspension_title">SUSPENSION</h2>
+                <p class="block-desc" data-loc="block_suspension_desc">Improve handling stability and reduce body roll in corners.</p>
+                <div class="stepper">
+                    <button class="step-btn highlight" data-step="suspension" data-dir="-1"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="step-value" id="suspensionValue">STOCK</div>
+                    <button class="step-btn" data-step="suspension" data-dir="1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <section class="block" data-block="armor">
+                <h2 class="block-title" data-loc="block_armor_title">ARMOR</h2>
+                <p class="block-desc" data-loc="block_armor_desc">Add bullet-resistant plating to protect the vehicle.</p>
+                <div class="stepper">
+                    <button class="step-btn highlight" data-step="armor" data-dir="-1"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="step-value" id="armorValue">STOCK</div>
+                    <button class="step-btn" data-step="armor" data-dir="1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <section class="block" data-block="turbo">
+                <h2 class="block-title" data-loc="block_turbo_title">TURBO</h2>
+                <p class="block-desc" data-loc="block_turbo_desc">Add a turbocharger for a massive acceleration boost.</p>
+                <div class="stepper">
+                    <button class="step-btn highlight" data-step="turbo" data-dir="-1"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="step-value" id="turboValue">NO</div>
+                    <button class="step-btn" data-step="turbo" data-dir="1"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </section>
+        </aside>
+
+    </div>
+
+    <div id="bossApp" class="boss-app" style="display: none;" aria-hidden="true">
+        <div class="top-accent"></div>
+
+        <aside class="panel left boss-panel">
+            <div class="close-hint">
+                <span class="key">ESC</span> <span data-loc="boss_close_hint_suffix">Close office</span>
+            </div>
+
+            <div class="header">
+                <h1><span data-loc="boss_header_title">WORKSHOP</span> <img class="logo-r" src="logo-r.png" alt="" draggable="false"></h1>
+                <p class="subtitle" data-loc="boss_header_subtitle">Boss office. Revenue from tuning sales goes to the company account.</p>
+            </div>
+
+            <div class="info-banner">
+                <i class="fa-solid fa-briefcase"></i>
+                <div class="info-text">
+                    <h3 data-loc="boss_banner_title">Mechanic Boss Dashboard</h3>
+                    <p id="bossBannerSub" data-loc="boss_banner_sub">Only managers can access this menu.</p>
+                </div>
+            </div>
+
+            <div class="boss-stat-grid">
+                <div class="boss-stat">
+                    <span class="boss-stat-label" data-loc="boss_stat_company">COMPANY ACCOUNT</span>
+                    <span class="boss-stat-value" id="bossBalance">0 $</span>
+                </div>
+                <div class="boss-stat">
+                    <span class="boss-stat-label" data-loc="boss_stat_today">TODAY</span>
+                    <span class="boss-stat-value accent" id="bossToday">0 $</span>
+                </div>
+                <div class="boss-stat">
+                    <span class="boss-stat-label" data-loc="boss_stat_week">WEEK</span>
+                    <span class="boss-stat-value accent" id="bossWeek">0 $</span>
+                </div>
+            </div>
+
+            <div class="boss-section-title-row">
+                <h2 class="boss-section-title" data-loc="boss_tx_title">RECENT ENTRIES</h2>
+                <p class="boss-section-desc" data-loc="boss_tx_desc">Workshop tuning revenue.</p>
+            </div>
+            <div class="boss-tx-list" id="bossTxList"></div>
+
+            <div class="boss-section-title-row tight">
+                <h2 class="boss-section-title" data-loc="boss_withdraw_title">WITHDRAWAL</h2>
+                <p class="boss-section-desc" data-loc="boss_withdraw_desc">Amount from company account to your personal account.</p>
+            </div>
+            <div class="boss-withdraw-row">
+                <input type="number" class="boss-input" id="bossWithdrawInput" min="1" step="1" placeholder="Amount" data-placeholder-loc="boss_placeholder_amount">
+                <button type="button" class="boss-btn-primary" id="bossWithdrawBtn" data-loc="boss_withdraw_btn">WITHDRAW</button>
+            </div>
+
+            <div class="boss-footer">
+                <button type="button" class="boss-btn-ghost" id="bossCloseBtn" data-loc="boss_close_btn">CLOSE</button>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="boss.js"></script>
+</body>
+</html>
